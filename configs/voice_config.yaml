@@ -1,0 +1,18 @@
+# Voice Configuration for Minions
+# This file configures the ElevenLabs voice settings
+
+# Voice description - used for voice design
+description: |
+  A friendly, helpful assistant voice with a slight playful quality,
+  reminiscent of the Minions from Despicable Me.
+  Clear and articulate, with a warm tone and good enunciation.
+  Speaks at a moderate pace with occasional enthusiasm.
+
+# ElevenLabs model to use
+model_id: eleven_monolingual_v1
+
+# Voice settings
+stability: 0.5
+similarity_boost: 0.75
+style: 0.0
+use_speaker_boost: true

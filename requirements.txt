@@ -1,0 +1,22 @@
+# The Minions Cursor Plugin - Dependencies
+
+# Core (required)
+pyyaml>=6.0
+
+# HTTP client (used by ElevenLabs and Twilio APIs - Victor's implementation)
+httpx>=0.24.0
+
+# Numerical operations (used by embeddings - Xavier's implementation)
+numpy>=1.20.0
+
+# Redis (optional - falls back to in-memory)
+redis>=4.0.0
+
+# OpenAI for LLM and embeddings (optional)
+openai>=1.0.0
+
+# ElevenLabs SDK (optional alternative to httpx implementation)
+# elevenlabs>=0.2.0
+
+# Twilio SDK (optional alternative to httpx implementation)
+# twilio>=8.0.0

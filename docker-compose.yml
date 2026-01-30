@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  # Redis database
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+
+  # Development environment
+  dev:
+    build: .
+    volumes:
+      - .:/app
+      - /app/.venv  # Exclude virtual env
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - ELEVEN_API_KEY=${ELEVEN_API_KEY:-}
+      - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID:-}
+      - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN:-}
+      - TWILIO_FROM_NUMBER=${TWILIO_FROM_NUMBER:-}
+    depends_on:
+      - redis
+    command: bash
+
+  # Run tests
+  test:
+    build: .
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+    command: pytest tests/ -v --tb=short
+
+  # Build executables
+  build:
+    build: .
+    volumes:
+      - .:/app
+      - ./dist:/app/dist
+    command: python build.py
+
+volumes:
+  redis_data:
