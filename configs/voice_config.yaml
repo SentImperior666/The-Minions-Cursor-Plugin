@@ -1,0 +1,40 @@
+# Default Minion Voice Configuration
+#
+# This file defines the voice characteristics for the Minion's phone calls.
+# Voice is generated using ElevenLabs text-to-voice API.
+
+default:
+  description: |
+    A friendly, enthusiastic helper with a slightly high-pitched voice.
+    Speaks clearly and concisely. Has a warm, approachable tone that
+    conveys helpfulness and competence. Slightly playful but professional.
+  
+  # ElevenLabs voice settings
+  stability: 0.5
+  similarity_boost: 0.75
+  style: 0.0
+  use_speaker_boost: true
+  
+  # Voice model to use
+  model_id: "eleven_multilingual_v2"
+
+# Alternative voice configurations
+professional:
+  description: |
+    A calm, professional voice suitable for business communications.
+    Clear articulation, measured pace, and authoritative tone.
+  stability: 0.7
+  similarity_boost: 0.8
+  style: 0.0
+  use_speaker_boost: true
+  model_id: "eleven_multilingual_v2"
+
+casual:
+  description: |
+    A casual, friendly voice for informal updates.
+    Relaxed and conversational, like chatting with a friend.
+  stability: 0.4
+  similarity_boost: 0.6
+  style: 0.2
+  use_speaker_boost: true
+  model_id: "eleven_multilingual_v2"
