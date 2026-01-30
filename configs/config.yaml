@@ -1,0 +1,44 @@
+# Main Configuration for The Minions Cursor Plugin
+
+# Redis Configuration
+redis:
+  host: localhost
+  port: 6379
+  db: 0
+  # password: your_redis_password  # Uncomment if using password
+
+# Cursor Integration
+cursor:
+  # Polling interval in seconds
+  poll_interval: 2.0
+  # Auto-spawn minions for new chats
+  auto_spawn: true
+
+# OpenAI Configuration
+openai:
+  # Model to use for summarization
+  model: gpt-4o
+  # Temperature for generation
+  temperature: 0.7
+  # Max tokens for summaries
+  max_tokens: 500
+
+# ElevenLabs Configuration
+elevenlabs:
+  # Model for text-to-speech
+  model_id: eleven_monolingual_v1
+  # Voice settings
+  stability: 0.5
+  similarity_boost: 0.75
+
+# Twilio Configuration  
+twilio:
+  # Your Twilio phone number (E.164 format)
+  # from_number: +1234567890
+
+# Minion Settings
+minion:
+  # How many messages before auto-updating summary
+  summary_update_threshold: 5
+  # Maximum summaries to keep per minion
+  max_summaries: 100
