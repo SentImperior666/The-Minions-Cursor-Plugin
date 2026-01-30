@@ -1,0 +1,61 @@
+# Docker Compose for The Minions Cursor Plugin
+# Task 3: Redis Database Interface and CodebaseIndexer
+
+version: '3.8'
+
+services:
+  # Redis service for local development and testing
+  redis:
+    image: redis:7-alpine
+    container_name: minions-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Test runner service
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: minions-test
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PYTHONPATH=/app
+    volumes:
+      - ./src:/app/src:ro
+      - ./tests:/app/tests:ro
+    command: pytest -v --cov=src --cov-report=term-missing
+
+  # Development shell
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: minions-dev
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PYTHONPATH=/app
+    volumes:
+      - ./src:/app/src
+      - ./tests:/app/tests
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+
+volumes:
+  redis_data:
